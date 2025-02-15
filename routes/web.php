@@ -55,11 +55,19 @@ $tasks = [
 ];
 
 Route::get('/', function () use ($tasks) {
+    return redirect()->route('tasks.index');
+});
+
+Route::get('/', function () use ($tasks) {
     return view('index',['tasks' => $tasks]);
 })->name('tasks.index');
 
 Route::get('/task/{id}', function ($id) use ($tasks) {
-    return 'One single task: '.$id;
+    $task = collect($tasks)->firstWhere('id', $id);
+    if(!$task){
+        abort(404);
+    }
+    return view('show',['task' => $task]);
 })->name('tasks.show');
 
 Route::fallback(function () {
