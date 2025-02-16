@@ -14,17 +14,27 @@ Route::get('/', function () {
     return view('index',['tasks' => $tasks]);
 })->name('tasks.index');
 
-Route::get('/task/{id}', function ($id) {
+Route::view('/tasks/create', 'create')->name('tasks.create');
+
+Route::get('/tasks/{id}', function ($id) {
     $task = Task::findOrFail($id);
     return view('show',['task' => $task]);
 })->name('tasks.show');
+
 Route::post('/tasks', function (Request $request) {
     // dd('We have store route');
-    dd($request->all());
+    // dd($request->all());
+    $data = $request->validate([
+        'title' => 'required|max:255',
+        'description' => 'required',
+        'long_description' => 'required',
+    ]);
     $task = new Task();
-    $task->title = request('title');
+    $task->title = $data['title'];
+    $task->description = $data['description'];
+    $task->long_description = $data['long_description'];
     $task->save();
-    return redirect()->route('tasks.index');
+    return redirect()->route('tasks.show',['id' => $task->id]);
 })->name('tasks.store');
 
 Route::fallback(function () {
