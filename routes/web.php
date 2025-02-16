@@ -16,8 +16,7 @@ Route::get('/', function () {
 
 Route::view('/tasks/create', 'create')->name('tasks.create');
 
-Route::get('/tasks/{id}', function ($id) {
-    $task = Task::findOrFail($id);
+Route::get('/tasks/{task}', function (Task $task) {
     return view('show',['task' => $task]);
 })->name('tasks.show');
 
@@ -38,9 +37,9 @@ Route::post('/tasks', function (Request $request) {
         ->with('success','Task created successfully');
 })->name('tasks.store');
 
-Route::get('/tasks/{id}/edit', function ($id) {
+Route::get('/tasks/{task}/edit', function (Task $task) {
     return view('edit', [
-        'task' => Task::findOrFail($id)
+        'task' => $task
     ]);
 })->name('tasks.edit');
 
