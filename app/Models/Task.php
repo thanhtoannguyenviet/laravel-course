@@ -16,4 +16,11 @@ class Task extends Model
     // mass assignment: Là khi bạn truyền một mảng dữ liệu (ví dụ từ form) vào hàm create() hoặc update()
     // để tự động gán giá trị vào các cột trong bảng cơ sở dữ liệu 
     // mà không cần gán từng trường một cách thủ công.
+
+    public function toggleComplete()
+    {
+        // Dùng để thay thế bước đảo ngược bên web.php
+        $this->completed = !$this->completed;
+        $this->save();
+    }
 }

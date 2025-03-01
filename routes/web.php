@@ -52,3 +52,11 @@ Route::delete('/tasks/{task}', function (Task $task) {
     return redirect()->route('tasks.index')
         ->with('success','Task deleted successfully');
 })->name('tasks.destroy');
+
+Route::put('/tasks/{task}/toggle', function (Task $task) {
+    // $task->toggleComplete(); -> Sau khi đóng gói ở model, có thể dùng dể thay thế code phía dưới
+    $task->completed = !$task->completed;
+    $task->save();
+    return redirect()->back()
+        ->with('success','Task updated successfully');
+})->name('tasks.toggle-complete');
