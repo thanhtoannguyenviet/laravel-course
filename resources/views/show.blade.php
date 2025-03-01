@@ -8,6 +8,10 @@
 @if ($task->long_description)
   <p>{{$task->long_description}}</p>
 @endif
+
+<div>
+  <a href="{{ route('tasks.edit', ['task' => $task]) }}">Edit</a>
+</div>
 <div>
   <form action="{{ route('tasks.destroy', ['task'=> $task->id]) }}" method="POST">
     @csrf
