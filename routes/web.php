@@ -38,7 +38,7 @@ Route::get('/tasks/{task}/edit', function (Task $task) {
 Route::put('/tasks/{task}', function (Task $task, TaskRequest $request) {
     // dd('We have store route');
     // dd($request->all());
-    $task->updated($request->validated());
+    $task->update($request->validated());
     return redirect()->route('tasks.show',['task' => $task->id])
         ->with('success','Task created successfully');
 })->name('tasks.update');
