@@ -8,18 +8,36 @@
     @if (isset($task))
       @method('PUT')
     @endif
-    <div>
+    <div class="mb-4">
       <label for="title">Title</label>
-      <input type="text" name="title" id="title" value="{{ old('title', $task->title ?? '') }}">
-    </div>
-    <div>
+      <input 
+        @class(['border-red-500' => $errors->has('title')])
+        type="text" name="title" id="title" value="{{ old('title', $task->title ?? '') }}">
+        @error('title')
+          <p class="error">{{ $message }}</p>
+        @enderror
+      </div>
+    <div class="mb-4">
       <label for="description">Description</label>
-      <textarea name="description" id="description">{{ old('description', $task->description ?? '') }}</textarea>
-    </div>
-    <div>
-      <label for="long_description">Long Description</label>
+      <textarea 
+        @class(['border-red-500' => $errors->has('description')])
+        name="description" id="description">{{ old('description', $task->description ?? '') }}</textarea>
+        @error('description')
+          <p class="error">{{ $message }}</p>
+        @enderror
+      </div>
+    <div class="mb-4">
+      <label 
+        @class(['border-red-500' => $errors->has('long_description')])
+        for="long_description">Long Description</label>
       <textarea name="long_description" id="long_description">{{ old('long_description', $task->long_description ?? '') }}</textarea>
+        @error('long_description')
+          <p class="error">{{ $message }}</p>
+        @enderror
     </div>
-    <button type="submit">{{ isset($task) ? 'Update' : 'Create' }}</button>
+    <div class="flex items-center gap-2">
+      <button type="submit">{{ isset($task) ? 'Update' : 'Create' }}</button>
+    </div>
+    <a href="{{ route('tasks.index') }}" class="link">Cancel</a>
   </form>
 @endsection

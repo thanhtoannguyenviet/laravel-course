@@ -6,6 +6,13 @@
 <div class="mb-4">
     <a href="{{ route('tasks.index') }}" class="link">Go back to the task list!</a>
 </div>
+
+<nav class="mb-4">
+  <a href="{{ route('tasks.create')}}"
+    class="link">
+    Add a new task
+  </a>
+</nav>
 <p>{{$task->description}}</p>
 
 @if ($task->long_description)
